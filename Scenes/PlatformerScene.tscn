@@ -1,0 +1,143 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Scenes/ObstacleStatic.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/SceneManager.gd" type="Script" id=3]
+[ext_resource path="res://TileSets/AutoTile3x3_Platforms_Transparent.tres" type="TileSet" id=4]
+[ext_resource path="res://Sprites/tiles_auto_simple.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/GameOver.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Sprites/tiles_auto_simple_32.png" type="Texture" id=7]
+[ext_resource path="res://Scenes/ObstacleMoving.tscn" type="PackedScene" id=8]
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
+points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
+points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
+
+[sub_resource type="TileSet" id=5]
+0/name = "tiles_auto_simple.png 0"
+0/texture = ExtResource( 5 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 192, 64 )
+0/tile_mode = 1
+0/autotile/bitmask_mode = 1
+0/autotile/bitmask_flags = [ Vector2( 0, 0 ), 48, Vector2( 1, 0 ), 56, Vector2( 2, 0 ), 24 ]
+0/autotile/icon_coordinate = Vector2( 1, 0 )
+0/autotile/tile_size = Vector2( 64, 64 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 6 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 1, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 6 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+1/name = "tiles_auto_simple_32.png 1"
+1/texture = ExtResource( 7 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 96, 32 )
+1/tile_mode = 1
+1/autotile/bitmask_mode = 1
+1/autotile/bitmask_flags = [ Vector2( 0, 0 ), 48, Vector2( 1, 0 ), 56, Vector2( 2, 0 ), 24 ]
+1/autotile/icon_coordinate = Vector2( 1, 0 )
+1/autotile/tile_size = Vector2( 32, 32 )
+1/autotile/spacing = 0
+1/autotile/occluder_map = [  ]
+1/autotile/navpoly_map = [  ]
+1/autotile/priority_map = [  ]
+1/autotile/z_index_map = [  ]
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape = SubResource( 7 )
+1/shape_one_way = false
+1/shape_one_way_margin = 1.0
+1/shapes = [ {
+"autotile_coord": Vector2( 1, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 7 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+1/z_index = 0
+
+[node name="Platformer" type="Node2D"]
+
+[node name="SceneManager" type="Node2D" parent="."]
+script = ExtResource( 3 )
+player_path = NodePath("../Player")
+gameover_ui_path = NodePath("../UI/GameOver")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="GameOver" parent="UI" instance=ExtResource( 6 )]
+default_scene = "res://Scenes/PlatformerScene.tscn"
+
+[node name="3x3Auto" type="TileMap" parent="."]
+tile_set = ExtResource( 4 )
+cell_y_sort = true
+collision_layer = 2
+collision_mask = 17
+format = 1
+
+[node name="SimpleAuto" type="TileMap" parent="."]
+tile_set = SubResource( 5 )
+cell_size = Vector2( 32, 32 )
+collision_layer = 2
+collision_mask = 17
+format = 1
+tile_data = PoolIntArray( -131080, 1, 0, -131079, 1, 1, -131078, 1, 1, -131077, 1, 1, -131076, 1, 1, -131075, 1, 1, -131074, 1, 2, -196606, 1, 0, -196605, 1, 1, -196604, 1, 1, -196603, 1, 1, -196602, 1, 1, -196601, 1, 2, 65523, 1, 0, 65524, 1, 1, 65525, 1, 1, 65526, 1, 1, 65527, 1, 1, 65528, 1, 1, 65529, 1, 2, 7, 1, 0, 8, 1, 1, 9, 1, 1, 10, 1, 1, 11, 1, 1, 12, 1, 1, 13, 1, 1, 14, 1, 2, 196601, 1, 0, 196602, 1, 1, 196603, 1, 1, 196604, 1, 1, 196605, 1, 1, 196606, 1, 1, 196607, 1, 1, 131072, 1, 1, 131073, 1, 1, 131074, 1, 1, 131075, 1, 1, 131076, 1, 1, 131077, 1, 1, 131078, 1, 2 )
+
+[node name="Obstacles" type="Node2D" parent="."]
+
+[node name="ObstacleStatic" parent="Obstacles" instance=ExtResource( 1 )]
+position = Vector2( -128, 56 )
+frame_number = 1
+
+[node name="ObstacleStatic2" parent="Obstacles" instance=ExtResource( 1 )]
+position = Vector2( 128, 56 )
+
+[node name="ObstacleMoving" parent="Obstacles" instance=ExtResource( 8 )]
+position = Vector2( -288, -16 )
+direction = 1
+
+[node name="ObstacleMoving2" parent="Obstacles" instance=ExtResource( 8 )]
+position = Vector2( -128, -128 )
+stay_on_platform = false
+direction = 1
+activate_on_player_detect = true
+
+[node name="ObstacleMoving3" parent="Obstacles" instance=ExtResource( 8 )]
+position = Vector2( 160, -121 )
+stay_on_platform = false
+activate_on_player_detect = true
+
+[node name="ObstacleMoving4" parent="Obstacles" instance=ExtResource( 8 )]
+position = Vector2( 352, -17 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+use_gravity = true
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+
+[connection signal="player_died" from="Player" to="SceneManager" method="_on_Player_player_died"]
+[connection signal="player_hit" from="Player" to="SceneManager" method="_on_Player_player_hit"]

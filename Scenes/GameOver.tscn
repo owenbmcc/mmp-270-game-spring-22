@@ -1,0 +1,109 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://UI/button_restart/ui_3.png" type="Texture" id=1]
+[ext_resource path="res://UI/button_restart/ui_0.png" type="Texture" id=2]
+[ext_resource path="res://UI/button_restart/ui_1.png" type="Texture" id=3]
+[ext_resource path="res://UI/ui_titles/ui_title_game_over.png" type="Texture" id=4]
+[ext_resource path="res://Audio/ui_hover.wav" type="AudioStream" id=5]
+[ext_resource path="res://Audio/ui_click.wav" type="AudioStream" id=6]
+[ext_resource path="res://UI/ui_instructions.png" type="Texture" id=7]
+[ext_resource path="res://UI/button_quit/ui_1.png" type="Texture" id=8]
+[ext_resource path="res://UI/button_quit/ui_3.png" type="Texture" id=9]
+[ext_resource path="res://UI/button_quit/ui_0.png" type="Texture" id=10]
+[ext_resource path="res://UI/ui_titles/sprite_1.png" type="Texture" id=11]
+[ext_resource path="res://Scripts/Menu.gd" type="Script" id=12]
+
+[node name="GameOver" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+default_scene = "res://Scenes/DefaultScene.tscn"
+title_path = NodePath("CenterContainer/HBoxContainer/CenterContainer2/TitleGraphic")
+instructions_path = NodePath("Instructions")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+margin_left = 222.0
+margin_right = 802.0
+margin_bottom = 516.0
+
+[node name="CenterContainer2" type="CenterContainer" parent="CenterContainer/HBoxContainer"]
+margin_right = 512.0
+margin_bottom = 516.0
+
+[node name="TitleGraphic" type="VBoxContainer" parent="CenterContainer/HBoxContainer/CenterContainer2"]
+margin_right = 512.0
+margin_bottom = 516.0
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/HBoxContainer/CenterContainer2/TitleGraphic"]
+margin_right = 512.0
+margin_bottom = 256.0
+
+[node name="Title" type="TextureRect" parent="CenterContainer/HBoxContainer/CenterContainer2/TitleGraphic/CenterContainer"]
+modulate = Color( 0.227451, 0.643137, 0.470588, 1 )
+margin_left = 128.0
+margin_right = 384.0
+margin_bottom = 256.0
+texture = ExtResource( 4 )
+
+[node name="Graphic" type="TextureRect" parent="CenterContainer/HBoxContainer/CenterContainer2/TitleGraphic"]
+margin_top = 260.0
+margin_right = 512.0
+margin_bottom = 516.0
+texture = ExtResource( 11 )
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/HBoxContainer"]
+margin_left = 516.0
+margin_right = 580.0
+margin_bottom = 516.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/CenterContainer"]
+margin_top = 224.0
+margin_right = 64.0
+margin_bottom = 292.0
+
+[node name="Start" type="TextureButton" parent="CenterContainer/HBoxContainer/CenterContainer/VBoxContainer"]
+modulate = Color( 0.435294, 0.87451, 0.690196, 1 )
+margin_right = 64.0
+margin_bottom = 32.0
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 1 )
+
+[node name="Quit" type="TextureButton" parent="CenterContainer/HBoxContainer/CenterContainer/VBoxContainer"]
+modulate = Color( 0.435294, 0.87451, 0.690196, 1 )
+margin_top = 36.0
+margin_right = 64.0
+margin_bottom = 68.0
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 9 )
+
+[node name="ButtonPress" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[node name="ButtonHover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
+[node name="Instructions" type="VBoxContainer" parent="."]
+margin_top = 130.0
+margin_right = 512.0
+margin_bottom = 386.0
+
+[node name="Graphic" type="TextureRect" parent="Instructions"]
+modulate = Color( 0.529412, 0.498039, 0.984314, 1 )
+margin_right = 512.0
+margin_bottom = 256.0
+texture = ExtResource( 7 )
+
+[connection signal="pressed" from="CenterContainer/HBoxContainer/CenterContainer/VBoxContainer/Start" to="." method="_on_Start_pressed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/CenterContainer/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
