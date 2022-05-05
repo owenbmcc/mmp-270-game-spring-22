@@ -53,7 +53,7 @@ func movement_update(delta):
 
 # hit by player or projectile
 func hit(damage):
-	print(damage, health)
+
 	health = health - damage
 	$AnimatedSprite.play('Hit')
 	if health <= 0:

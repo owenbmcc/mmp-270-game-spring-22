@@ -262,5 +262,6 @@ __meta__ = {
 position = Vector2( 2276, 221 )
 load_level_path = "res://Scenes/Level2.tscn"
 
+[connection signal="game_over" from="SceneManager" to="CheckpointsManager" method="_on_game_over"]
 [connection signal="player_died" from="Player" to="SceneManager" method="_on_Player_player_died"]
 [connection signal="player_hit" from="Player" to="SceneManager" method="_on_Player_player_hit"]

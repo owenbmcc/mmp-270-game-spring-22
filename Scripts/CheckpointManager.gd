@@ -31,6 +31,7 @@ func _ready():
 				scene_objects[object_name].queue_free()
 	
 	# if this is a new scene, update the player position
+
 	if scene_name != CheckpointsGlobal.current_scene:
 		CheckpointsGlobal.current_scene = scene_name
 		CheckpointsGlobal.update_spawn_position(player.position)
@@ -48,3 +49,5 @@ func _on_game_over():
 	for object_name in scene_objects:
 		if not is_instance_valid(scene_objects[object_name]):
 			CheckpointsGlobal.scene_objects[scene_name][object_name] = 0
+
+

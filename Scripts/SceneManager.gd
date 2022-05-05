@@ -9,6 +9,8 @@ var gameover_ui
 export (NodePath) var gamewin_ui_path
 var gamewin_ui
 
+signal game_over
+
 func _ready():
 	if gameover_ui_path:
 		gameover_ui = get_node(gameover_ui_path)
@@ -42,8 +44,13 @@ func _on_Player_player_hit():
 	if Global.player_lives <= 0:
 		player.dies()
 		gameover_ui.visible = true
+		emit_signal("game_over")
 		
 
 
 func _on_PortalEndGame_on_activate():
 	gamewin_ui.visible = true
+
+
+func _on_game_over():
+	pass # Replace with function body.
