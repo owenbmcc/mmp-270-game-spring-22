@@ -4,11 +4,21 @@ export (NodePath) var player_path
 onready var player = get_node(player_path)
 
 export (NodePath) var gameover_ui_path
-onready var gameover_ui = get_node(gameover_ui_path)
+var gameover_ui
+
+export (NodePath) var gamewin_ui_path
+var gamewin_ui
 
 func _ready():
+	if gameover_ui_path:
+		gameover_ui = get_node(gameover_ui_path)
 	if gameover_ui:
 		gameover_ui.visible = false
+	
+	if gamewin_ui_path:
+		gamewin_ui = get_node(gamewin_ui_path)
+	if gamewin_ui:
+		gamewin_ui.visible = false
 
 func _on_Item_item_collected(item_type):
 	if item_type == 'apple':
@@ -33,10 +43,7 @@ func _on_Player_player_hit():
 		player.dies()
 		gameover_ui.visible = true
 		
-		
-		
-		
-		
-		
-		
-		
+
+
+func _on_PortalEndGame_on_activate():
+	gamewin_ui.visible = true

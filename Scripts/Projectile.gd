@@ -20,10 +20,9 @@ func _physics_process(delta):
 		entered_screen = true
 
 func _on_Fireball_area_entered(area):
-	print(area)
 	$AnimatedSprite.play("Hit")
 	$Hit.play()
-	area.get_parent().hit()
+	area.get_parent().hit(25)
 	is_flying = false
 
 

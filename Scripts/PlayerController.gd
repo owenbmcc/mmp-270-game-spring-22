@@ -23,6 +23,10 @@ var is_shooting = false
 signal player_died
 signal player_hit
 
+export var damage_timeout_interval = 1
+var damage_timeout = -1 # default
+
+
 func _physics_process(delta):
 	# conditional statement
 	if is_alive and is_moving:
@@ -33,6 +37,9 @@ func _physics_process(delta):
 		
 		if is_moving:
 			update_animation()
+	
+	if damage_timeout > 0:
+		damage_timeout = damage_timeout - delta
 
 func update_movement(delta):
 	# reset the player velocity
@@ -116,9 +123,11 @@ func end_talk():
 	is_moving = true
 
 func enemy_collision():
-	is_moving = false
-	$AnimatedSprite.play('Hit')
-	$HitSound.play()
+	if damage_timeout < 0:
+		damage_timeout = damage_timeout_interval
+		is_moving = false
+		$AnimatedSprite.play('Hit')
+		$HitSound.play()
 
 func _on_AnimatedSprite_animation_finished():
 	if $AnimatedSprite.animation == 'Hit':

@@ -52,15 +52,19 @@ func movement_update(delta):
 # collisions -- assumes layer masks are set up
 
 # hit by player or projectile
-func hit():
-	is_alive = false
-	$AnimatedSprite.play('Dies')
-	$DeathSound.play()
+func hit(damage):
+	print(damage, health)
+	health = health - damage
+	$AnimatedSprite.play('Hit')
+	if health <= 0:
+		is_alive = false
+		$AnimatedSprite.play('Dies')
+		$DeathSound.play()
 
 # if player jump on head or another part, hits with projectile
 func _on_Hit_body_entered(_body):
 	if is_alive:
-		hit()
+		hit(20)
 
 # area that harms/kills player
 func _on_Attack_body_entered(body):
@@ -88,8 +92,3 @@ func _on_AnimatedSprite_animation_finished():
 	if $AnimatedSprite.animation == 'Attack':
 		is_moving = true
 
-
-func _on_Attack2_body_entered(body):
-	if is_alive and body.is_alive:
-		$AnimatedSprite.play('Attack2')
-		# shoot a projectile

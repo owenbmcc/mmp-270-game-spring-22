@@ -1,0 +1,246 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://Sprites/tiles_auto_simple_32.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/tiles_auto_simple.png" type="Texture" id=2]
+[ext_resource path="res://Audio/HoliznaCC0 - Lost On The Freeway Edit.mp3" type="AudioStream" id=3]
+[ext_resource path="res://Scripts/SceneManager.gd" type="Script" id=4]
+[ext_resource path="res://Sprites/background.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/Fireball.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/ObstacleStatic.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/GameOver.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/ObstacleMoving.tscn" type="PackedScene" id=11]
+[ext_resource path="res://TileSets/AutoTile3x3_Platforms_Transparent.tres" type="TileSet" id=12]
+[ext_resource path="res://Scenes/GameWin.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/Item.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scenes/Life.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Scenes/Checkpoint.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Scripts/CheckpointManager.gd" type="Script" id=18]
+[ext_resource path="res://Scenes/PortalEndGame.tscn" type="PackedScene" id=19]
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
+points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
+points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
+
+[sub_resource type="TileSet" id=5]
+0/name = "tiles_auto_simple.png 0"
+0/texture = ExtResource( 2 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 192, 64 )
+0/tile_mode = 1
+0/autotile/bitmask_mode = 1
+0/autotile/bitmask_flags = [ Vector2( 0, 0 ), 48, Vector2( 1, 0 ), 56, Vector2( 2, 0 ), 24 ]
+0/autotile/icon_coordinate = Vector2( 1, 0 )
+0/autotile/tile_size = Vector2( 64, 64 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 6 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 1, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 6 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+1/name = "tiles_auto_simple_32.png 1"
+1/texture = ExtResource( 1 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 96, 32 )
+1/tile_mode = 1
+1/autotile/bitmask_mode = 1
+1/autotile/bitmask_flags = [ Vector2( 0, 0 ), 48, Vector2( 1, 0 ), 56, Vector2( 2, 0 ), 24 ]
+1/autotile/icon_coordinate = Vector2( 1, 0 )
+1/autotile/tile_size = Vector2( 32, 32 )
+1/autotile/spacing = 0
+1/autotile/occluder_map = [  ]
+1/autotile/navpoly_map = [  ]
+1/autotile/priority_map = [  ]
+1/autotile/z_index_map = [  ]
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape = SubResource( 7 )
+1/shape_one_way = false
+1/shape_one_way_margin = 1.0
+1/shapes = [ {
+"autotile_coord": Vector2( 1, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 7 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+1/z_index = 0
+
+[node name="Level2" type="Node2D"]
+
+[node name="SceneManager" type="Node2D" parent="."]
+script = ExtResource( 4 )
+player_path = NodePath("../Player")
+gameover_ui_path = NodePath("../UI/GameOver")
+gamewin_ui_path = NodePath("../UI/GameWin")
+
+[node name="CheckpointsManager" type="Node2D" parent="."]
+script = ExtResource( 18 )
+player_path = NodePath("../Player")
+scene_objects_paths = [ NodePath("../Items/Item"), NodePath("../Items/Item2"), NodePath("../Items/Item3"), NodePath("../Items/Item4"), NodePath("../Items/Item5"), NodePath("../Items/Item6"), NodePath("../Lifes/Life"), NodePath("../Obstacles/ObstacleMoving"), NodePath("../Obstacles/ObstacleMoving2"), NodePath("../Obstacles/ObstacleMoving3"), NodePath("../Obstacles/ObstacleMoving4") ]
+scene_name = "Level2"
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="GameOver" parent="UI" instance=ExtResource( 10 )]
+visible = false
+default_scene = "res://Scenes/Level1.tscn"
+
+[node name="GameWin" parent="UI" instance=ExtResource( 13 )]
+visible = false
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+offset = Vector2( 512, 0 )
+transform = Transform2D( 1, 0, 0, 1, 512, 0 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color( 0.278431, 0.329412, 0.447059, 1 )
+motion_scale = Vector2( 0.5, 1 )
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource( 5 )
+hframes = 2
+vframes = 2
+frame = 1
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color( 0.447059, 0.415686, 0.623529, 1 )
+motion_scale = Vector2( 0.75, 1 )
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+texture = ExtResource( 5 )
+hframes = 2
+vframes = 2
+frame = 2
+
+[node name="3x3Auto" type="TileMap" parent="."]
+modulate = Color( 0.427451, 0.317647, 0.52549, 1 )
+tile_set = ExtResource( 12 )
+cell_y_sort = true
+collision_layer = 2
+collision_mask = 17
+format = 1
+tile_data = PoolIntArray( 65533, 2, 8, 65534, 2, 10, 65535, 2, 10, 0, 2, 10, 1, 2, 10, 2, 2, 10, 3, 2, 10, 4, 2, 11, 131069, 2, 65544, 131070, 2, 131081, 131071, 2, 131081, 65536, 2, 131081, 65537, 2, 131081, 65538, 2, 131081, 65539, 2, 131081, 65540, 2, 131083, 196605, 2, 65544, 196606, 2, 131081, 196607, 2, 131081, 131072, 2, 131081, 131073, 2, 131081, 131074, 2, 131081, 131075, 2, 131081, 131076, 2, 131083, 262141, 2, 65544, 262142, 2, 131081, 262143, 2, 131081, 196608, 2, 131081, 196609, 2, 131081, 196610, 2, 131081, 196611, 2, 131081, 196612, 2, 131083, 327677, 2, 65544, 327678, 2, 131081, 327679, 2, 131081, 262144, 2, 131081, 262145, 2, 131081, 262146, 2, 131081, 262147, 2, 131081, 262148, 2, 131083, 393213, 2, 65544, 393214, 2, 131081, 393215, 2, 131081, 327680, 2, 131081, 327681, 2, 131081, 327682, 2, 131081, 327683, 2, 131081, 327684, 2, 131083, 458749, 2, 65544, 458750, 2, 131081, 458751, 2, 131081, 393216, 2, 131081, 393217, 2, 131081, 393218, 2, 131081, 393219, 2, 131081, 393220, 2, 131083, 524285, 2, 65544, 524286, 2, 131081, 524287, 2, 131081, 458752, 2, 131081, 458753, 2, 131081, 458754, 2, 131081, 458755, 2, 131081, 458756, 2, 131083, 589821, 2, 65544, 589822, 2, 131081, 589823, 2, 131081, 524288, 2, 131081, 524289, 2, 131081, 524290, 2, 131081, 524291, 2, 131081, 524292, 2, 131083, 655357, 2, 65544, 655358, 2, 131081, 655359, 2, 131081, 589824, 2, 131081, 589825, 2, 131081, 589826, 2, 131081, 589827, 2, 131081, 589828, 2, 131083, 720893, 2, 196616, 720894, 2, 196617, 720895, 2, 196617, 655360, 2, 196617, 655361, 2, 196617, 655362, 2, 196617, 655363, 2, 196617, 655364, 2, 196619 )
+
+[node name="SimpleAuto" type="TileMap" parent="."]
+modulate = Color( 0.356863, 0.282353, 0.631373, 1 )
+tile_set = SubResource( 5 )
+cell_size = Vector2( 32, 32 )
+collision_layer = 2
+collision_mask = 17
+format = 1
+tile_data = PoolIntArray( -1245188, 1, 0, -1245187, 1, 1, -1245186, 1, 1, -1245185, 1, 1, -1310720, 1, 1, -1310719, 1, 1, -1310718, 1, 2, -1114106, 1, 0, -1114105, 1, 1, -1114104, 1, 1, -1114103, 1, 1, -1114102, 1, 1, -1114101, 1, 1, -1114100, 1, 1, -1114099, 1, 2, -917483, 1, 0, -917482, 1, 1, -917481, 1, 1, -917480, 1, 1, -917479, 1, 1, -917478, 1, 1, -917477, 1, 2, -851957, 1, 0, -851956, 1, 1, -851955, 1, 1, -851954, 1, 1, -851953, 1, 2, -655363, 1, 0, -655362, 1, 1, -655361, 1, 1, -720896, 1, 1, -720895, 1, 1, -720894, 1, 1, -720893, 1, 1, -720892, 1, 2, -720879, 1, 0, -720878, 1, 1, -720877, 1, 1, -720876, 1, 1, -720875, 1, 2, -589818, 1, 0, -589817, 1, 1, -589816, 1, 1, -589815, 1, 1, -589814, 1, 1, -589813, 1, 1, -589812, 1, 2, -458762, 1, 0, -458761, 1, 1, -458760, 1, 1, -458759, 1, 1, -458758, 1, 1, -458757, 1, 2, -262148, 1, 0, -262147, 1, 1, -262146, 1, 1, -262145, 1, 1, -327680, 1, 1, -327679, 1, 1, -327678, 1, 2, -196604, 1, 0, -196603, 1, 1, -196602, 1, 1, -196601, 1, 1, -196600, 1, 1, -196599, 1, 1, -196598, 1, 1, -196597, 1, 2 )
+
+[node name="Items" type="YSort" parent="."]
+
+[node name="Item" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( 267, -314 )
+collision_layer = 0
+
+[node name="Item2" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( 324, -313 )
+collision_layer = 0
+
+[node name="Item3" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( 8, -665 )
+collision_layer = 0
+
+[node name="Item4" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( -46, -666 )
+collision_layer = 0
+
+[node name="Item5" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( 366, -582 )
+collision_layer = 0
+
+[node name="Item6" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( 290, -578 )
+collision_layer = 0
+
+[node name="Lifes" type="YSort" parent="."]
+
+[node name="Life" parent="Lifes" instance=ExtResource( 16 )]
+position = Vector2( 625, -377 )
+
+[node name="Obstacles" type="Node2D" parent="."]
+position = Vector2( 19, 699 )
+
+[node name="ObstacleStatic" parent="Obstacles" instance=ExtResource( 8 )]
+position = Vector2( 243, -690 )
+frame_number = 1
+
+[node name="ObstacleStatic2" parent="Obstacles" instance=ExtResource( 8 )]
+position = Vector2( -150, -688 )
+
+[node name="ObstacleMoving" parent="Obstacles" instance=ExtResource( 11 )]
+position = Vector2( 239, -822 )
+direction = 1
+
+[node name="ObstacleMoving2" parent="Obstacles" instance=ExtResource( 11 )]
+position = Vector2( -77, -877 )
+direction = 1
+
+[node name="ObstacleMoving3" parent="Obstacles" instance=ExtResource( 11 )]
+position = Vector2( 413, -1132 )
+stay_on_platform = false
+direction = 1
+activate_on_player_detect = true
+
+[node name="ObstacleMoving4" parent="Obstacles" instance=ExtResource( 11 )]
+position = Vector2( -241, -973 )
+
+[node name="Checkpoints" type="Node2D" parent="."]
+
+[node name="Checkpoint" parent="Checkpoints" instance=ExtResource( 17 )]
+position = Vector2( 24, -362 )
+
+[node name="Player" parent="." instance=ExtResource( 9 )]
+use_gravity = true
+fireball = ExtResource( 6 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+limit_top = -1024
+limit_bottom = 512
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -24.0
+autoplay = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="PortalEndGame" parent="." instance=ExtResource( 19 )]
+position = Vector2( 785, -505 )
+
+[connection signal="player_died" from="Player" to="SceneManager" method="_on_Player_player_died"]
+[connection signal="player_hit" from="Player" to="SceneManager" method="_on_Player_player_hit"]
+[connection signal="on_activate" from="PortalEndGame" to="SceneManager" method="_on_PortalEndGame_on_activate"]

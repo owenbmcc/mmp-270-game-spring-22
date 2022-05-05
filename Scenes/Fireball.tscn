@@ -52,7 +52,6 @@ script = ExtResource( 3 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 7 )
 animation = "Flying"
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -71,5 +70,4 @@ volume_db = -6.0
 pitch_scale = 0.75
 
 [connection signal="area_entered" from="." to="." method="_on_Fireball_area_entered"]
-[connection signal="body_entered" from="." to="." method="_on_Fireball_body_entered"]
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
