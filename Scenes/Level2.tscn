@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Sprites/tiles_auto_simple_32.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/tiles_auto_simple.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Scripts/SceneManager.gd" type="Script" id=4]
 [ext_resource path="res://Sprites/background.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/Fireball.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Metrics.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/ObstacleStatic.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/GameOver.tscn" type="PackedScene" id=10]
@@ -93,6 +94,7 @@ script = ExtResource( 4 )
 player_path = NodePath("../Player")
 gameover_ui_path = NodePath("../UI/GameOver")
 gamewin_ui_path = NodePath("../UI/GameWin")
+metrics_ui_path = NodePath("../UI/Metrics")
 
 [node name="CheckpointsManager" type="Node2D" parent="."]
 script = ExtResource( 18 )
@@ -101,6 +103,8 @@ scene_objects_paths = [ NodePath("../Items/Item"), NodePath("../Items/Item2"), N
 scene_name = "Level2"
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Metrics" parent="UI" instance=ExtResource( 7 )]
 
 [node name="GameOver" parent="UI" instance=ExtResource( 10 )]
 visible = false
@@ -241,6 +245,11 @@ __meta__ = {
 [node name="PortalEndGame" parent="." instance=ExtResource( 19 )]
 position = Vector2( 785, -505 )
 
+[connection signal="item_collected" from="Items/Item" to="SceneManager" method="_on_Item_item_collected"]
+[connection signal="item_collected" from="Items/Item2" to="SceneManager" method="_on_Item_item_collected"]
+[connection signal="item_collected" from="Items/Item3" to="SceneManager" method="_on_Item_item_collected"]
+[connection signal="item_collected" from="Items/Item5" to="SceneManager" method="_on_Item_item_collected"]
+[connection signal="item_collected" from="Lifes/Life" to="SceneManager" method="_on_Item_item_collected"]
 [connection signal="player_died" from="Player" to="SceneManager" method="_on_Player_player_died"]
 [connection signal="player_hit" from="Player" to="SceneManager" method="_on_Player_player_hit"]
 [connection signal="on_activate" from="PortalEndGame" to="SceneManager" method="_on_PortalEndGame_on_activate"]

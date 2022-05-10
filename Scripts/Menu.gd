@@ -13,6 +13,7 @@ func _ready():
 		instructions.visible = false
 
 func _on_Start_pressed():
+	Global.player_lives = Global.total_lives
 	get_tree().change_scene(default_scene)
 	$ButtonPress.play()
 

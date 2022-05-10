@@ -9,9 +9,16 @@ var gameover_ui
 export (NodePath) var gamewin_ui_path
 var gamewin_ui
 
+export (NodePath) var metrics_ui_path
+var metrics
+
 signal game_over
 
 func _ready():
+	
+	if metrics_ui_path:
+		metrics = get_node(metrics_ui_path)
+	
 	if gameover_ui_path:
 		gameover_ui = get_node(gameover_ui_path)
 	if gameover_ui:
@@ -30,6 +37,9 @@ func _on_Item_item_collected(item_type):
 	if item_type == 'life' and Global.player_lives < Global.total_lives:
 		Global.player_lives = Global.player_lives + 1
 		print('You have ', Global.player_lives, ' lives')
+	
+	if metrics:
+		metrics.update_display()
 
 
 func _on_Player_player_died():
@@ -45,7 +55,9 @@ func _on_Player_player_hit():
 		player.dies()
 		gameover_ui.visible = true
 		emit_signal("game_over")
-		
+	
+	if metrics:
+		metrics.update_display()	
 
 
 func _on_PortalEndGame_on_activate():
@@ -54,3 +66,4 @@ func _on_PortalEndGame_on_activate():
 
 func _on_game_over():
 	pass # Replace with function body.
+
