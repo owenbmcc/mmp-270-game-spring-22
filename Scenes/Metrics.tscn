@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scripts/MetricsManager.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/reward_apple.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://Scripts/MetricCount.gd" type="Script" id=4]
 [ext_resource path="res://Sprites/reward_life.png" type="Texture" id=5]
 [ext_resource path="res://Scripts/MetricToggle.gd" type="Script" id=6]
+[ext_resource path="res://Scenes/MetricProgress.gd" type="Script" id=7]
+[ext_resource path="res://Scripts/MetricProgress.gd" type="Script" id=8]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -58,16 +60,20 @@ animations = [ {
 [node name="Metrics" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -5.0
+margin_right = -2.0
+margin_bottom = -5.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-metrics_paths = [ NodePath("ItemCount"), NodePath("Life1"), NodePath("Life2"), NodePath("Life3") ]
+metrics_paths = [ NodePath("ItemCount"), NodePath("Life1"), NodePath("Life2"), NodePath("Life3"), NodePath("ProgressBar") ]
 
 [node name="Item" type="AnimatedSprite" parent="."]
 position = Vector2( 32, 32 )
 frames = SubResource( 5 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="ItemCount" type="Label" parent="."]
@@ -86,13 +92,14 @@ __meta__ = {
 [node name="Life1" type="AnimatedSprite" parent="."]
 position = Vector2( 128, 32 )
 frames = SubResource( 10 )
-frame = 1
+frame = 2
 playing = true
 script = ExtResource( 6 )
 
 [node name="Life2" type="AnimatedSprite" parent="."]
 position = Vector2( 162, 32 )
 frames = SubResource( 10 )
+frame = 1
 playing = true
 script = ExtResource( 6 )
 value = 2
@@ -100,22 +107,20 @@ value = 2
 [node name="Life3" type="AnimatedSprite" parent="."]
 position = Vector2( 196, 32 )
 frames = SubResource( 10 )
-frame = 2
 playing = true
 script = ExtResource( 6 )
 value = 3
 
 [node name="TextureProgress" type="TextureProgress" parent="."]
-visible = false
 margin_left = 256.0
 margin_right = 298.0
 margin_bottom = 42.0
+script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-visible = false
 modulate = Color( 0.768627, 0.741176, 1, 1 )
 margin_left = 229.0
 margin_top = 25.0
@@ -123,3 +128,4 @@ margin_right = 291.0
 margin_bottom = 39.0
 step = 1.0
 value = 50.0
+script = ExtResource( 8 )

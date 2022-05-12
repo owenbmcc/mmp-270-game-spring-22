@@ -7,6 +7,9 @@ export var stay_on_platform = true
 export var direction = -1 # 1 for right, -1 for left
 export var activate_on_player_detect = false # begins moving when player is within area
 
+export var chase_player = false
+var player
+
 # member vars
 var velocity = Vector2()
 var is_alive = true
@@ -26,22 +29,30 @@ func _ready():
 	if activate_on_player_detect:
 		horizontal_move = false
 
+
 func _physics_process(delta):
 	if is_moving and is_alive:
 		movement_update(delta)
 
 func movement_update(delta):
 	if stay_on_platform:
-
 		if is_on_wall() or not $PlatformCheck.is_colliding():
 			direction = direction * -1 # switch direction
 			$AnimatedSprite.flip_h = direction == 1 # match animation to direction
 			$PlatformCheck.position.x = direction * $Collider.shape.get_radius()
-			
+	
+	if chase_player and player:
+		var player_direction = player.position.x - position.x
+		if  sign(player_direction) != direction:
+			direction = direction * -1 # switch direction
+			$AnimatedSprite.flip_h = direction == 1 # match animation to direction
+			$PlatformCheck.position.x = direction * $Collider.shape.get_radius()
+	
 	velocity.y += gravity
 	
 	if is_on_floor() and horizontal_move:
 		velocity.x = speed * direction
+		
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
@@ -78,6 +89,7 @@ func _on_Attack_body_entered(body):
 
 # area that detect player is nearby
 func _on_Detect_body_entered(body):
+	player = body
 	if is_alive:
 		if activate_on_player_detect:
 			horizontal_move = true

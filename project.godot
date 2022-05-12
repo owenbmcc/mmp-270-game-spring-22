@@ -81,6 +81,8 @@ _global_script_class_icons={
 [application]
 
 config/name="My Game"
+run/main_scene="res://Scenes/Menu.tscn"
+boot_splash/image="res://UI/ui_titles/sprite_1.png"
 config/icon="res://icon.png"
 
 [autoload]
